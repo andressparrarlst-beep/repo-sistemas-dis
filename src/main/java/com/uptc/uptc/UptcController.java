@@ -2,12 +2,13 @@ package com.uptc.uptc;
 
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
+@RestController
 public class UptcController {
     
     private final UptcUserService userService;
@@ -16,17 +17,13 @@ public class UptcController {
         this.userService = userService;
     }
 
-    @PostMapping("getAllUsers")
-    public List<UptcUser> getUsers(@RequestBody String entity) {
-        //TODO: process POST request
-        
+    @GetMapping("/getAllUsers, version=1")
+    public List<UptcUser> getUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping("createUser")
     public UptcUser createUser(@RequestBody UptcUser uptcUser) {
-        //TODO: process POST request
-        
         return userService.createUser(uptcUser);
     }
     
