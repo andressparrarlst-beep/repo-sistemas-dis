@@ -1,4 +1,4 @@
-package com.uptc.uptc;
+package com.uptc.uptc.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

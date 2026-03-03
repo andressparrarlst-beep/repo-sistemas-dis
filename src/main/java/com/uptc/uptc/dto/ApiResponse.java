@@ -1,4 +1,4 @@
-package com.uptc.uptc;
+package com.uptc.uptc.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

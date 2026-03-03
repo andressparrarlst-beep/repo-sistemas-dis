@@ -1,4 +1,4 @@
-package com.uptc.uptc;
+package com.uptc.uptc.controller;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.uptc.uptc.dto.ApiResponse;
+import com.uptc.uptc.model.UptcUser;
+import com.uptc.uptc.service.UptcUserService;
 
 @RestController
 public class UptcController {

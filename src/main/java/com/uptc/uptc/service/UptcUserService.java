@@ -1,7 +1,9 @@
-package com.uptc.uptc;
+package com.uptc.uptc.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.uptc.uptc.model.UptcUser;
 
 import jakarta.annotation.PostConstruct;
 
@@ -13,10 +15,10 @@ import java.util.List;
 @Service
 public class UptcUserService {
 
-    @Value("${directory.name:data}")
+    @Value("${directory.user.name:data}")
     private String dirName;
 
-    @Value("${file.name:users.txt}")
+    @Value("${file.user.name:users.txt}")
     private String fileName;
 
     private Path filePath;
@@ -66,7 +68,9 @@ public class UptcUserService {
 
         user.setId(newId);
 
-        try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND)) {
+        try (
+            
+            BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND)) {
 
             String line = user.getId() + "," +
                     user.getName() + "," +
@@ -88,7 +92,9 @@ public class UptcUserService {
 
         List<UptcUser> users = new ArrayList<>();
 
-        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+        try (
+            
+            BufferedReader reader = Files.newBufferedReader(filePath)) {
 
             String line;
 
