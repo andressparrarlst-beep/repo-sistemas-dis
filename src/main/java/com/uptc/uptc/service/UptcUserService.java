@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class UptcUserService {
 
-    @Value("${directory.user.name:data}")
+    @Value("${directory.name:data}")
     private String dirName;
 
     @Value("${file.user.name:users.txt}")

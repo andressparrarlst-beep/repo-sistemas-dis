@@ -1,7 +1,5 @@
 package com.uptc.uptc.controller;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -26,23 +24,13 @@ public class UptcProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/getAllUsers")
+    @GetMapping("/getAllProducts")
     public ApiResponse<List<UptcProduct>> getUsers() {
         return new ApiResponse<>(serverId, productService.findAll());
     }
 
-    @PostMapping("createUser")
+    @PostMapping("createProduct")
     public ApiResponse<UptcProduct> createUser(@RequestBody UptcProduct uptcProduct) {
         return new ApiResponse<UptcProduct>(serverId, productService.save(uptcProduct));
-    }
-
-    @GetMapping("/ip")
-    public String getServerIp() {
-        try {
-            InetAddress ip = InetAddress.getLocalHost();
-            return "IP del servidor: " + ip.getHostAddress();
-        } catch (UnknownHostException e) {
-            return "No se pudo obtener la IP";
-        }
     }
 }
