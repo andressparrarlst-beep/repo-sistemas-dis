@@ -1,17 +1,33 @@
-# Imagen base con Java
-FROM openjdk:17-jdk-slim
+# ---------- Etapa de build ----------
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
-# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar el jar al contenedor
-COPY target/uptc-0.0.1-SNAPSHOT.jar app.jar
+RUN apt-get update && apt-get install -y git
 
-# Exponer puerto (Spring Boot usa 8080 por defecto)
+ENV GITHUB_TOKEN=$valor
+
+# Copiar archivos del proyecto
+COPY pom.xml .
+
+COPY src ./src
+
+# Compilar proyecto
+RUN mvn clean package -DskipTests
+
+# ---------- Etapa final ----------
+FROM eclipse-temurin:21-jre-jammy
+
+WORKDIR /app
+
+# Copiar el JAR desde la etapa de build
+COPY --from=build /app/target/*.jar app.jar
+
+# Exponer puerto
 EXPOSE 8080
 
-# Variable de entorno opcional
+# Variable de entorno
 ENV SERVER_ID=docker-instance
 
-# Comando para ejecutar la app
+# Ejecutar aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
