@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +25,14 @@ public class UptcController {
         }
     }
 
-
-
     @GetMapping("/getAllUsers")
     public ApiResponse<List<UptcUser>> getUsers() {
         return new ApiResponse<>(serverId, userService.getAllUsers());
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<UptcUser> getUserById(@PathVariable Long id) {
+        return new ApiResponse<>(serverId, userService.getUserById(id));
     }
 
     @PostMapping("createUser")

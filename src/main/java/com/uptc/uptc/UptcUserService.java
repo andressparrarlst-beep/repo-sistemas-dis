@@ -21,4 +21,8 @@ public class UptcUserService {
         return userRepository.findAll();
     }
 
+    public UptcUser getUserById(Long id){
+        return userRepository.findById(id).orElseThrow();
+    }
+
 }
