@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,10 +24,10 @@ public class UptcController {
     }
 
     @GetMapping("/users")
-    public Page<UptcUser> getUsers(
+    public ResponseEntity<Page<UptcUser>> getUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "100") int size) {
-        return userService.getUsers(PageRequest.of(page, size));
+        return ResponseEntity.ok(userService.getUsers(PageRequest.of(page, size)));
     }
 
     @GetMapping("/{id}")

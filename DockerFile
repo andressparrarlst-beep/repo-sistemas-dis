@@ -3,16 +3,10 @@ FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y git
+# Copiar el código local en lugar de clonar
+COPY . .
 
-ENV GITHUB_TOKEN=$valor
-
-# Copiar archivos del proyecto
-COPY pom.xml .
-
-COPY src ./src
-
-# Compilar proyecto
+# Compilar y empaquetar (sin tests)
 RUN mvn clean package -DskipTests
 
 # ---------- Etapa final ----------
@@ -20,14 +14,8 @@ FROM eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
-# Copiar el JAR desde la etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Exponer puerto
 EXPOSE 8080
 
-# Variable de entorno
-ENV SERVER_ID=docker-instance
-
-# Ejecutar aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
