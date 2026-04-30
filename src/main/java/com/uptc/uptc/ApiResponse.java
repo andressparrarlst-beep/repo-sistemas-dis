@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class ApiResponse<T> {
     
     private String server;
+    private String host;
     private T data;
 
 }
