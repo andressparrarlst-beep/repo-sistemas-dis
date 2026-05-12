@@ -26,29 +26,29 @@ public class UptcController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<Page<UptcUser>> getUsers(
+    public ResponseEntity<Page<UptcUser>> users(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "100") int size) {
         return ResponseEntity.ok(userService.getUsers(PageRequest.of(page, size)));
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<UptcUser> getUserById(@PathVariable Long id) {
+    public ApiResponse<UptcUser> userById(@PathVariable Long id) {
         return new ApiResponse<>(serverId,hostname, userService.getUserById(id));
     }
 
-    @PostMapping("createUser")
-    public ApiResponse<UptcUser> createUser(@RequestBody UptcUser uptcUser) {
+    @PostMapping("user")
+    public ApiResponse<UptcUser> user(@RequestBody UptcUser uptcUser) {
         return new ApiResponse<>(serverId,hostname, userService.createUser(uptcUser));
     }
 
-    @GetMapping("/ip")
-    public ApiResponse<String> getServerIp() {
+    @GetMapping("/state")
+    public ApiResponse<Boolean> state() {
         try {
-            InetAddress ip = InetAddress.getLocalHost();
-            return new ApiResponse<>(serverId,hostname, "IP del servidor: " + ip.getHostAddress());
+            InetAddress.getLocalHost();
+            return new ApiResponse<>(serverId,hostname,true);
         } catch (UnknownHostException e) {
-            return new ApiResponse<>(serverId,hostname, "No se pudo obtener la IP");
+            return new ApiResponse<>(serverId,hostname, false);
         }
     }
 }
